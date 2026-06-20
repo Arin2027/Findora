@@ -1,0 +1,65 @@
+# Render Blueprint — Findora API
+# Docs: https://render.com/docs/blueprint-spec
+#
+# Deploy: connect this repo in Render → New → Blueprint → select render.yaml
+# Or create a Web Service manually using the settings below.
+
+services:
+  - type: web
+    name: findora-api
+    runtime: node
+    region: oregon
+    plan: starter
+    rootDir: server
+    buildCommand: npm ci
+    startCommand: node index.js
+    healthCheckPath: /api/health/ready
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: AI_MATCHING_MODE
+        value: hybrid
+      - key: ENABLE_IMAGE_MATCHING
+        value: "true"
+      - key: MATCH_DEBUG
+        value: "false"
+      # --- Set these in the Render dashboard (sync: false) ---
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 15m
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 7d
+      - key: CLIENT_URL
+        sync: false
+      - key: APP_URL
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: EMBEDDING_MODEL
+        value: text-embedding-3-small
+      - key: HF_API_KEY
+        sync: false
+      - key: HF_CLIP_MODEL
+        value: openai/clip-vit-base-patch32
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: SMTP_FROM
+        sync: false

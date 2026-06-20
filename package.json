@@ -1,0 +1,17 @@
+{
+  "name": "findora",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "seed": "node server/scripts/seed.js",
+    "test:server": "npm test --prefix server",
+    "test:client": "npm test --prefix client",
+    "test:e2e": "cypress run",
+    "cypress:open": "cypress open"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "cypress": "^15.15.0"
+  }
+}
